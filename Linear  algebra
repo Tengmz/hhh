@@ -1,0 +1,68 @@
+# 矩阵计算功能清单：
+# 1.行列式计算
+# 2.矩阵基础计算 加、乘、转置
+# 3.求逆矩阵、伴随矩阵
+# 4.矩阵秩，线性方程组解
+# 5.向量组线性相关性
+# 6.特征值、特征向量、正交性、对称性
+
+import numpy as np
+
+E = np.array([1, 2, 3])
+F = np.array([4, 3, 9])
+
+
+
+#功能2
+
+print(np.dot(E, F))
+
+print(np.dot(F, E))
+
+print(F + E)
+G = F.reshape(-1, 1)
+print(F)
+print("\n")
+print(G)
+
+print(np.dot(F, G))#dot(F, G)不再是内积，而是一个只有一个元素的数组
+
+E.shape = (1, -1)  # 把E改为二维数组
+print(E)
+
+print(np.dot(G, E))#3×1的G向量乘以1×3的E向量会得到3×3的矩阵
+
+print(E.T)
+# 以上包括了向量计算，因此未设置矩阵报错
+
+# 功能1
+A = np.array([[1,3,6],
+              [5,3,2],
+              [9,5,1]])
+print(np.linalg.det(A))
+print(np.trace(A))  # 计算A的迹
+
+
+# 功能3
+A_det = np.linalg.det(A)
+if A_det != 0:
+    A_inverse = np.linalg.inv(A)
+print(A_inverse)
+A_companion = A_inverse * A_det
+print(A_companion)
+
+# 功能4
+print(np.linalg.matrix_rank(A))  # 计算矩阵秩
+
+B = np.array([[1, 2, 1], [2, -1, 3], [3, 1, 2]])  # 系数矩阵
+C = np.array([7, 7, 18])  # 常数矩阵
+x = np.linalg.solve(B, C)
+print(x)
+
+
+ # 功能6
+a,b = np.linalg.eig(A)  # 特征值为a 特征向量为b
+print(a)
+print(b)
+if np.all(a>0):
+    print("yes")  # 判断其为正定
